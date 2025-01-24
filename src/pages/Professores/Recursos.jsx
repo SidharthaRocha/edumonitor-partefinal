@@ -38,7 +38,7 @@ const UploadRecursos = () => {
           return;
         }
         const jsonPayload = { nome, tipo, link };
-        response = await fetch('http://localhost/backend/upload.php', {
+        response = await fetch('http://localhost/upload.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const UploadRecursos = () => {
         formData.append('tipo', tipo);
         formData.append('arquivo', arquivo);
 
-        response = await fetch('http://localhost/backend/upload.php', {
+        response = await fetch('http://localhost/upload.php', {
           method: 'POST',
           body: formData,
           credentials: 'include',

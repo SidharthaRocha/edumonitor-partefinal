@@ -33,24 +33,22 @@ const Aluno = () => {
         body: JSON.stringify({ email, senha }),
       });
 
-      // Verifica se a resposta é válida
-      if (!response.ok) {
-        const result = await response.json();
-        setErrorMessage(result.message || 'E-mail ou senha incorretos.');
-        setLoading(false);
-        return;
-      }
-
-      // Caso o login seja bem-sucedido, manipula os dados
+      // Tentativa de capturar o corpo da resposta como JSON
       const result = await response.json();
 
-      if (result.userType === 'aluno') {
+      // Verificação de sucesso ou falha no login
+      if (response.ok) {
         // Armazenando o tipo de usuário (aluno) e o nome do aluno em localStorage
         localStorage.setItem('userType', result.userType);
         localStorage.setItem('userName', result.userName); // Armazenando o nome do aluno
-        navigate('/Dashboard-aluno');
+
+        // Redirecionando para o Dashboard do aluno
+        if (result.userType === 'aluno') {
+          navigate('/Dashboard-aluno');
+        }
       } else {
-        setErrorMessage('Tipo de usuário inválido.');
+        // Caso haja erro, exibe a mensagem de erro retornada
+        setErrorMessage(result.message || 'E-mail ou senha incorretos.');
       }
     } catch (error) {
       // Em caso de erro de conexão, exibe a mensagem de erro

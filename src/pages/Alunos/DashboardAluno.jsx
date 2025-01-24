@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaUser, FaChartLine, FaBell, FaCalendarAlt } from 'react-icons/fa';
+import { FaUser, FaChartLine, FaBell, FaCalendarAlt, FaCog } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 function DashboardAluno({ theme }) {
@@ -78,6 +78,14 @@ function DashboardAluno({ theme }) {
             link="/calendario-aluno"
             colors="bg-teal-500"
             buttonColor="bg-teal-600 hover:bg-teal-700"
+          />
+          <ResponsiveCard
+            title="Configurações"
+            description="Gerencie suas preferências."
+            icon={<FaCog />}
+            link="/configuracoes-aluno"
+            colors="bg-purple-500"
+            buttonColor="bg-purple-600 hover:bg-purple-700"
           />
         </motion.div>
       </motion.main>

@@ -20,7 +20,6 @@ import Enviarecursos from './pages/Professores/Recursos';
 import NotificacoesProfessor from './pages/Professores/Notificações';
 import CalendarioProfessor from './pages/Professores/Calendário';
 import ConfiguracoesProfessor from './pages/Professores/Configurações';
-import RelatoriosProfessor from './pages/Professores/RelatóriosProfessor';
 import MeuDesempenhoAluno from './pages/Alunos/MeuDesempenho';
 import MeuComportamentoAluno from './pages/Alunos/MeuComportamento';
 import NotificacoesAluno from './pages/Alunos/Notificações';
@@ -29,8 +28,7 @@ import RecursosAluno from './pages/Alunos/Recursos';
 import Desenvolvimento from './components/Desenvolvimento_do_Seu_Filho';
 import Graficoaluno from './pages/Alunos/GraficoDesempenho';
 import Alunonotas from './pages/Alunos/AlunoNotas';
-
-
+import Configuracaoaluno from './pages/Alunos/Configurações';
 
 
 import 'animate.css';
@@ -85,13 +83,13 @@ return (
         <Route path="/feedback-suggestion" element={<Feedback />} />
         <Route path="/calendario-professor" element={<CalendarioProfessor />} />
         <Route path="/configuracoes-professor" element={<ConfiguracoesProfessor />} />
-        <Route path="/relatorios-professor" element={<RelatoriosProfessor />} />
         <Route path="/meudesempenho-aluno" element={<MeuDesempenhoAluno />} />
         <Route path="/meucomportamento-aluno" element={<MeuComportamentoAluno />} />
         <Route path="/notificacoes-aluno" element={<NotificacoesAluno />} />
         <Route path="/calendario-aluno" element={<CalendarioAluno />} />
         <Route path="/recursos-professor" element={<Enviarecursos />} />
         <Route path="/recursos-aluno" element={<RecursosAluno />} />
+        <Route path="/configuracoes-aluno" element={<Configuracaoaluno />} />
         <Route path="/graficos-desempenho-aluno" element={<Graficoaluno/>} />
         <Route path="/notas-aluno" element={<Alunonotas/>} />
         <Route path="*" element={<Navigate to="/" />} />

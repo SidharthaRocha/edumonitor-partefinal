@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
-const ConfiguracoesProfessor = () => {
+const ConfiguracoesAluno  = () => {
   const [activeTab, setActiveTab] = useState('perfil');
   const [userInfo, setUserInfo] = useState({
     nome: 'João Silva',
@@ -14,6 +14,7 @@ const ConfiguracoesProfessor = () => {
     email: true,
     sms: false,
   });
+  const [previousNotificationSettings, setPreviousNotificationSettings] = useState(notificationSettings); // Estado para guardar as configurações anteriores
   const [loading, setLoading] = useState(false); // Estado para controle de carregamento
   const navigate = useNavigate();
 
@@ -21,6 +22,11 @@ const ConfiguracoesProfessor = () => {
     hidden: { opacity: 0, x: -50 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: 'easeOut' } },
   };
+
+  useEffect(() => {
+    // Atualiza previousNotificationSettings quando notificationSettings muda
+    setPreviousNotificationSettings(notificationSettings);
+  }, [notificationSettings]);
 
   const handleSaveProfile = async () => {
     if (!userInfo.nome || !userInfo.email || !userInfo.senha) {
@@ -36,7 +42,7 @@ const ConfiguracoesProfessor = () => {
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost/backend/atualizar_perfil.php', {
+      const response = await fetch('http://localhost/backend/atualizar_perfilaluno.php', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -58,9 +64,18 @@ const ConfiguracoesProfessor = () => {
   };
 
   const handleSaveNotifications = async () => {
+    // Verificação de mudanças nas configurações
+    if (
+      notificationSettings.email === previousNotificationSettings.email &&
+      notificationSettings.sms === previousNotificationSettings.sms
+    ) {
+      alert('Nenhuma alteração foi feita nas notificações.');
+      return;
+    }
+
     setLoading(true);
     try {
-      const response = await fetch('http://localhost/backend/obter_perfil.php', {
+      const response = await fetch('http://localhost/backend/obter_perfilaluno.php', {  // Certifique-se de usar o endpoint correto
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -103,21 +118,13 @@ const ConfiguracoesProfessor = () => {
       <div className="flex space-x-6 border-b border-gray-300 pb-2">
         <button
           onClick={() => setActiveTab('perfil')}
-          className={`text-lg font-semibold ${
-            activeTab === 'perfil'
-              ? 'text-indigo-600 border-b-2 border-indigo-600'
-              : 'text-gray-500 hover:text-indigo-600'
-          }`}
+          className={`text-lg font-semibold ${activeTab === 'perfil' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500 hover:text-indigo-600'}`}
         >
           Editar Perfil
         </button>
         <button
           onClick={() => setActiveTab('notificacoes')}
-          className={`text-lg font-semibold ${
-            activeTab === 'notificacoes'
-              ? 'text-indigo-600 border-b-2 border-indigo-600'
-              : 'text-gray-500 hover:text-indigo-600'
-          }`}
+          className={`text-lg font-semibold ${activeTab === 'notificacoes' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500 hover:text-indigo-600'}`}
         >
           Configurar Notificações
         </button>
@@ -125,12 +132,7 @@ const ConfiguracoesProfessor = () => {
 
       <div className="mt-6">
         {activeTab === 'perfil' && (
-          <motion.div
-            className="bg-white p-6 rounded-lg shadow-md"
-            variants={pageVariants}
-            initial="hidden"
-            animate="visible"
-          >
+          <motion.div className="bg-white p-6 rounded-lg shadow-md" variants={pageVariants} initial="hidden" animate="visible">
             <h2 className="text-xl font-semibold text-indigo-800 mb-4">Editar Perfil</h2>
             <div className="space-y-4">
               <div>
@@ -172,21 +174,14 @@ const ConfiguracoesProfessor = () => {
         )}
 
         {activeTab === 'notificacoes' && (
-          <motion.div
-            className="bg-white p-6 rounded-lg shadow-md"
-            variants={pageVariants}
-            initial="hidden"
-            animate="visible"
-          >
+          <motion.div className="bg-white p-6 rounded-lg shadow-md" variants={pageVariants} initial="hidden" animate="visible">
             <h2 className="text-xl font-semibold text-indigo-800 mb-4">Configurar Notificações</h2>
             <div className="space-y-4">
               <div className="flex items-center space-x-4">
                 <input
                   type="checkbox"
                   checked={notificationSettings.email}
-                  onChange={() =>
-                    setNotificationSettings((prev) => ({ ...prev, email: !prev.email }))
-                  }
+                  onChange={() => setNotificationSettings((prev) => ({ ...prev, email: !prev.email }))}
                   className="w-4 h-4"
                 />
                 <label className="text-gray-700">Receber notificações por email</label>
@@ -195,9 +190,7 @@ const ConfiguracoesProfessor = () => {
                 <input
                   type="checkbox"
                   checked={notificationSettings.sms}
-                  onChange={() =>
-                    setNotificationSettings((prev) => ({ ...prev, sms: !prev.sms }))
-                  }
+                  onChange={() => setNotificationSettings((prev) => ({ ...prev, sms: !prev.sms }))}
                   className="w-4 h-4"
                 />
                 <label className="text-gray-700">Receber notificações por SMS</label>
@@ -217,4 +210,4 @@ const ConfiguracoesProfessor = () => {
   );
 };
 
-export default ConfiguracoesProfessor;
+export default ConfiguracoesAluno;
