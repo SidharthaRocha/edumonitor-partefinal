@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaUser, FaChartLine, FaBell, FaCalendarAlt, FaCog } from 'react-icons/fa';
+import { FaUser, FaChartLine, FaBell, FaCalendarAlt, FaCog, FaTools } from 'react-icons/fa'; // Importando o ícone do FaTools
 import { motion } from 'framer-motion';
 
 function DashboardAluno({ theme }) {
@@ -86,6 +86,15 @@ function DashboardAluno({ theme }) {
             link="/configuracoes-aluno"
             colors="bg-purple-500"
             buttonColor="bg-purple-600 hover:bg-purple-700"
+          />
+          {/* Nova opção adicionada */}
+          <ResponsiveCard
+            title="Meus Recursos"
+            description="Acesse materiais e ferramentas extras."
+            icon={<FaTools />}
+            link="/recursos-aluno"
+            colors="bg-orange-500"
+            buttonColor="bg-orange-600 hover:bg-orange-700"
           />
         </motion.div>
       </motion.main>

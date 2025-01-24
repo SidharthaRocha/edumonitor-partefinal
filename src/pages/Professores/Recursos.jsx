@@ -38,7 +38,7 @@ const UploadRecursos = () => {
           return;
         }
         const jsonPayload = { nome, tipo, link };
-        response = await fetch('http://localhost/upload.php', {
+        response = await fetch('https://e937-177-10-253-248.ngrok-free.ap/upload.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
