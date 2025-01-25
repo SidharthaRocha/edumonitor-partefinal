@@ -16,7 +16,7 @@ const EnviarFeedback = () => {
     }
 
     try {
-      const response = await fetch('http://localhost/backend/enviarFeedback.php', {
+      const response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/enviarFeedback.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ feedback, sugestao, emailDestino }),

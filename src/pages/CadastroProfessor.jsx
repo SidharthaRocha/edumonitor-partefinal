@@ -33,7 +33,7 @@ const CadastroProfessor = () => {
     }
 
     try {
-      const response = await fetch('http://localhost/backend/cadastro_professor.php', { 
+      const response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/cadastro_professor.php', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -42,7 +42,7 @@ const ConfiguracoesAluno  = () => {
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost/backend/atualizar_perfilaluno.php', {
+      const response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/atualizar_perfilaluno.php', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ const ConfiguracoesAluno  = () => {
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost/backend/obter_perfilaluno.php', {  // Certifique-se de usar o endpoint correto
+      const response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/obter_perfilaluno.php', {  // Certifique-se de usar o endpoint correto
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

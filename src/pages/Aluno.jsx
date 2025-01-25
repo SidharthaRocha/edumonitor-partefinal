@@ -25,7 +25,7 @@ const Aluno = () => {
 
     try {
       // Envia os dados de login para o backend (login_aluno.php)
-      const response = await fetch('http://localhost/backend/login_aluno.php', {
+      const response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/login_aluno.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

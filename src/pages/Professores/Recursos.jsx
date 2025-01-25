@@ -38,7 +38,7 @@ const UploadRecursos = () => {
           return;
         }
         const jsonPayload = { nome, tipo, link };
-        response = await fetch('https://e937-177-10-253-248.ngrok-free.ap/upload.php', {
+        response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/upload.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const UploadRecursos = () => {
         formData.append('tipo', tipo);
         formData.append('arquivo', arquivo);
 
-        response = await fetch('http://localhost/upload.php', {
+        response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/upload.php', {
           method: 'POST',
           body: formData,
           credentials: 'include',

@@ -9,7 +9,7 @@ const Recursos = () => {
   // Função assíncrona para buscar os recursos
   const fetchRecursos = async () => {
     try {
-      const response = await fetch('http://localhost/backend/upload.php');
+      const response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/upload.php');
       if (!response.ok) {
         throw new Error('Erro ao buscar os recursos');
       }

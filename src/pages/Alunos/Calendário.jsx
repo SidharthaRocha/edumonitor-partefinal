@@ -15,7 +15,7 @@ const Calendar = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('http://localhost/backend/calendario.php'); // Requisição para o backend
+        const response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/calendario.php'); // Requisição para o backend
         const textData = await response.text();
         console.log('Resposta do servidor (texto):', textData);
 

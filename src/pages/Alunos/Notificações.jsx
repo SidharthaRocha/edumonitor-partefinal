@@ -9,7 +9,7 @@ const NotificacoesRecebidas = () => {
   useEffect(() => {
     const fetchNotificacoes = async () => {
       try {
-        const response = await fetch('http://localhost/backend/notificacoes.php');
+        const response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/notificacoes.php');
         if (!response.ok) {
           throw new Error('Erro ao carregar notificações');
         }
@@ -26,7 +26,7 @@ const NotificacoesRecebidas = () => {
 
   const handleMarcarComoLida = async (id) => {
     try {
-      const response = await fetch(`http://localhost/backend/notificacoes.php?id=${id}`, {
+      const response = await fetch(`https://c85b-177-10-253-248.ngrok-free.app/backend/notificacoes.php?id=${id}`, {
         method: 'PUT',
       });
       if (!response.ok) {
