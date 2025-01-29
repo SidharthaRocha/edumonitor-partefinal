@@ -66,7 +66,10 @@ const Notificacoes = () => {
 
       <h1 className="text-4xl font-extrabold text-white mb-8">Enviar Notificação</h1>
 
-      <form className="bg-white rounded-lg shadow-xl p-8 w-full max-w-lg" onSubmit={handleEnviar}>
+      <form
+        className="bg-white rounded-lg shadow-xl p-8 w-full max-w-lg"
+        onSubmit={handleEnviar}
+      >
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">Título:</label>
           <input

@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { FaTrash, FaUserCheck, FaEdit, FaArrowLeft } from "react-icons/fa";
+import { FaTrash, FaUserCheck, FaEdit, FaArrowLeft, FaTimes, FaCheck } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import 'animate.css';  // Importando o Animate.css
 
 const alunosData = [
-  { id: 1, nome: "João Silva", email: "joao@gmail.com", dataNascimento: "1990-05-15", foto: "https://i.pravatar.cc/150?img=1" },
-  { id: 2, nome: "Maria Oliveira", email: "maria@gmail.com", dataNascimento: "1995-10-20", foto: "https://i.pravatar.cc/150?img=2" },
+  { id: 1, nome: "João Silva", email: "joao@gmail.com", dataNascimento: "1990-05-15", foto: "https://i.pravatar.cc/150?img=1", verificado: false },
+  { id: 2, nome: "Maria Oliveira", email: "maria@gmail.com", dataNascimento: "1995-10-20", foto: "https://i.pravatar.cc/150?img=2", verificado: false },
 ];
 
 export default function AlunosList() {
   const [alunos, setAlunos] = useState(alunosData);
   const [showForm, setShowForm] = useState(false);
-  const [newAluno, setNewAluno] = useState({ nome: "", email: "", dataNascimento: "", foto: "" });
-  const [editAluno, setEditAluno] = useState(null);
+  const [newAluno, setNewAluno] = useState({ nome: "", email: "", dataNascimento: "", foto: "", verificado: false });
+  const [editingAluno, setEditingAluno] = useState(null);
   const [search, setSearch] = useState("");
 
   const handleDeleteAluno = (id) => {
@@ -23,7 +23,20 @@ export default function AlunosList() {
 
   const handleAddAlunoSubmit = () => {
     setAlunos([...alunos, { ...newAluno, id: alunos.length + 1 }]);
-    setNewAluno({ nome: "", email: "", dataNascimento: "", foto: "" });
+    setNewAluno({ nome: "", email: "", dataNascimento: "", foto: "", verificado: false });
+    setShowForm(false);
+  };
+
+  const handleEditAluno = (aluno) => {
+    setEditingAluno(aluno);
+    setNewAluno(aluno);
+    setShowForm(true);
+  };
+
+  const handleUpdateAluno = () => {
+    setAlunos(alunos.map((aluno) => (aluno.id === editingAluno.id ? newAluno : aluno)));
+    setNewAluno({ nome: "", email: "", dataNascimento: "", foto: "", verificado: false });
+    setEditingAluno(null);
     setShowForm(false);
   };
 
@@ -41,9 +54,11 @@ export default function AlunosList() {
     }
   };
 
-  const handleEditSubmit = () => {
-    setAlunos(alunos.map((aluno) => (aluno.id === editAluno.id ? editAluno : aluno)));
-    setEditAluno(null);
+  // Função para marcar/desmarcar aluno como verificado
+  const toggleVerificado = (id) => {
+    setAlunos(alunos.map((aluno) =>
+      aluno.id === id ? { ...aluno, verificado: !aluno.verificado } : aluno
+    ));
   };
 
   const filteredAlunos = alunos.filter((aluno) =>
@@ -112,13 +127,15 @@ export default function AlunosList() {
                   <FaTrash size={18} />
                 </button>
                 <button
-                  onClick={() => alert('Ver perfil ainda não implementado')}
-                  className="text-green-600 bg-green-100 hover:bg-green-200 px-4 py-2 rounded-full shadow-sm transform hover:scale-110 transition"
+                  onClick={() => toggleVerificado(aluno.id)}
+                  className={`${
+                    aluno.verificado ? "text-green-600 bg-green-100" : "text-gray-600 bg-gray-100"
+                  } hover:bg-green-200 px-4 py-2 rounded-full shadow-sm transform hover:scale-110 transition`}
                 >
                   <FaUserCheck size={18} />
                 </button>
                 <button
-                  onClick={() => alert('Editar aluno ainda não implementado')}
+                  onClick={() => handleEditAluno(aluno)}
                   className="text-blue-600 bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-full shadow-sm transform hover:scale-110 transition"
                 >
                   <FaEdit size={18} />
@@ -131,9 +148,19 @@ export default function AlunosList() {
 
       {showForm && (
         <div className="fixed inset-0 bg-gray-700 bg-opacity-75 flex items-center justify-center animate__animated animate__fadeIn">
-          <div className="bg-white p-8 rounded-lg shadow-xl max-w-sm w-full">
+          <div className="bg-white p-8 rounded-lg shadow-xl max-w-sm w-full relative">
+            <button
+              onClick={() => {
+                setShowForm(false);
+                setEditingAluno(null);
+                setNewAluno({ nome: "", email: "", dataNascimento: "", foto: "", verificado: false });
+              }}
+              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-xl"
+            >
+              <FaTimes />
+            </button>
             <h2 className="text-2xl font-semibold mb-6 text-teal-600 text-center">
-              Adicionar Novo Aluno
+              {editingAluno ? "Editar Aluno" : "Adicionar Novo Aluno"}
             </h2>
             <input
               type="text"
@@ -165,10 +192,10 @@ export default function AlunosList() {
               className="w-full mb-4"
             />
             <button
-              onClick={handleAddAlunoSubmit}
+              onClick={editingAluno ? handleUpdateAluno : handleAddAlunoSubmit}
               className="w-full bg-teal-700 text-white px-4 py-3 rounded-lg hover:bg-teal-800 transition-all"
             >
-              Adicionar Aluno
+              {editingAluno ? "Atualizar Aluno" : "Adicionar Aluno"}
             </button>
           </div>
         </div>

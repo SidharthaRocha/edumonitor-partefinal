@@ -6,24 +6,43 @@ const Recursos = () => {
   const [recursos, setRecursos] = useState([]);
   const [erro, setErro] = useState(null); // Adicionado para tratar erros de requisição
 
-  // Função assíncrona para buscar os recursos
-  const fetchRecursos = async () => {
-    try {
-      const response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/upload.php');
-      if (!response.ok) {
-        throw new Error('Erro ao buscar os recursos');
-      }
-      const data = await response.json();
-      setRecursos(data); // Atualiza o estado com os recursos
-    } catch (error) {
-      console.error('Erro:', error);
-      setErro('Erro ao carregar os recursos. Tente novamente mais tarde.'); // Exibe mensagem de erro
-    }
-  };
+  // Simulação de recursos recebidos (materiais e vídeos com links)
+  const recursosSimulados = [
+    {
+      id: 1,
+      nome: 'Apostila de Matemática',
+      tipo: 'PDF',
+      link: 'https://www.exemplo.com/arquivo-matematica.pdf',
+    },
+    {
+      id: 2,
+      nome: 'Vídeo de Física - Lei de Newton',
+      tipo: 'Vídeo',
+      link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Apenas um exemplo de vídeo
+    },
+    {
+      id: 3,
+      nome: 'Tutorial de Programação',
+      tipo: 'Link',
+      link: 'https://www.w3schools.com',
+    },
+    {
+      id: 4,
+      nome: 'Apostila de Química',
+      tipo: 'PDF',
+      link: 'https://www.exemplo.com/arquivo-quimica.pdf',
+    },
+    {
+      id: 5,
+      nome: 'Aula sobre Termodinâmica',
+      tipo: 'Vídeo',
+      link: 'https://www.youtube.com/watch?v=QdFy7D9g8J8',
+    },
+  ];
 
-  // Usando useEffect para carregar os recursos ao montar o componente
   useEffect(() => {
-    fetchRecursos(); // Chama a função assíncrona para buscar os dados
+    // Simulando os recursos recebidos
+    setRecursos(recursosSimulados); // Atualiza o estado com os recursos simulados
   }, []);
 
   return (

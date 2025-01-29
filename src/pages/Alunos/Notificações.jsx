@@ -1,50 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { FaCheckCircle, FaBell, FaArrowLeft } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom'; // Importando o Link do React Router
 
 const NotificacoesRecebidas = () => {
   const [notificacoes, setNotificacoes] = useState([]);
   const [status, setStatus] = useState('');
 
+  // Simulação de notificações recebidas
   useEffect(() => {
-    const fetchNotificacoes = async () => {
-      try {
-        const response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/notificacoes.php');
-        if (!response.ok) {
-          throw new Error('Erro ao carregar notificações');
-        }
-        const data = await response.json();
-        setNotificacoes(data);
-      } catch (error) {
-        console.error('Erro:', error.message);
-        setStatus('Erro ao carregar notificações.');
-      }
-    };
-
-    fetchNotificacoes();
+    const notificacoesSimuladas = [
+      { id: 1, titulo: 'Nova Tarefa Disponível', mensagem: 'Uma nova tarefa foi adicionada ao seu curso.', status: 'Não Lida' },
+      { id: 2, titulo: 'Atualização de Horário', mensagem: 'O horário da aula de Matemática foi alterado.', status: 'Não Lida' },
+      { id: 3, titulo: 'Parabéns!', mensagem: 'Você completou todas as suas tarefas da semana.', status: 'Lida' },
+    ];
+    setNotificacoes(notificacoesSimuladas);
   }, []);
 
   const handleMarcarComoLida = async (id) => {
     try {
-      const response = await fetch(`https://c85b-177-10-253-248.ngrok-free.app/backend/notificacoes.php?id=${id}`, {
-        method: 'PUT',
-      });
-      if (!response.ok) {
-        throw new Error('Erro ao marcar como lida');
-      }
       setNotificacoes((prev) =>
         prev.map((notificacao) =>
           notificacao.id === id ? { ...notificacao, status: 'Lida' } : notificacao
         )
       );
+      setStatus('Notificação marcada como lida com sucesso!');
     } catch (error) {
       console.error('Erro:', error.message);
       setStatus('Erro ao marcar notificação como lida.');
     }
-  };
-
-  const handleVoltar = () => {
-    window.history.back();
   };
 
   return (
@@ -54,20 +38,20 @@ const NotificacoesRecebidas = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      {/* Botão Voltar */}
+      {/* Botão Voltar como Link do React Router */}
       <motion.div
         className="absolute top-6 left-6"
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <button
-          onClick={handleVoltar}
+        <Link
+          to="/dashboard-aluno" // Substitua o caminho conforme necessário
           className="inline-flex items-center text-[#2b7a76] font-semibold text-lg bg-white px-4 py-2 rounded-full shadow-md hover:bg-[#2b7a76] hover:text-white transition-all duration-300 ease-in-out transform hover:scale-105"
         >
           <FaArrowLeft size={20} />
           Voltar
-        </button>
+        </Link>
       </motion.div>
 
       {/* Título */}
@@ -112,7 +96,7 @@ const NotificacoesRecebidas = () => {
               </h2>
 
               {/* Mensagem com fonte maior */}
-              <p className="text-lg text-gray-700 mb-6">{notificacao.mensagem}</p>  {/* Aumentei a fonte para 'text-lg' */}
+              <p className="text-lg text-gray-700 mb-6">{notificacao.mensagem}</p>
 
               <div className="flex flex-col gap-4 items-center">
                 <span

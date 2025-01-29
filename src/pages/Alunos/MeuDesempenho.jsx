@@ -1,8 +1,72 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaArrowLeft, FaChartBar, FaEye } from "react-icons/fa";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+// Registrando os componentes do Chart.js
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const App = () => {
+  // Dados simulados para o gráfico
+  const data = {
+    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul"], // Meses simulados
+    datasets: [
+      {
+        label: "Evolução das Notas",
+        data: [7, 8, 6.5, 9, 8.5, 7.5, 9.5], // Notas simuladas
+        borderColor: "#6a0dad",
+        backgroundColor: "rgba(106, 13, 173, 0.2)",
+        tension: 0.4,
+        pointRadius: 5,
+        pointBackgroundColor: "#6a0dad",
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: "top",
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            return `Nota: ${context.raw}`;
+          },
+        },
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 10,
+        ticks: {
+          stepSize: 1,
+        },
+      },
+    },
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-indigo-200 to-blue-100 py-12 px-4 sm:px-8 lg:px-12">
       <div className="max-w-7xl mx-auto">
@@ -61,15 +125,13 @@ const App = () => {
           </div>
         </div>
 
-        {/* Gráfico de Desempenho (exemplo) */}
+        {/* Gráfico de Desempenho */}
         <div className="mt-12 bg-white rounded-2xl p-8 sm:p-10 shadow-xl hover:shadow-2xl transition-all ease-in-out duration-300">
           <h3 className="text-2xl sm:text-3xl font-semibold text-[#6a0dad] mb-6 text-center">
             Evolução das Notas
           </h3>
-          <div className="h-56 sm:h-72 bg-gradient-to-r from-purple-300 to-indigo-300 rounded-xl p-4 flex items-center justify-center text-white">
-            <p className="text-sm sm:text-lg text-center">
-              Gráfico interativo (exemplo de espaço para gráfico)
-            </p>
+          <div className="">
+            <Line data={data} options={options} />
           </div>
         </div>
       </div>

@@ -1,33 +1,26 @@
 import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom"; // Importando Link
 import { FaArrowLeft, FaStar } from "react-icons/fa"; // Ícones para melhorar o design
 
-export default function AlunoNotas({ alunos }) {
+export default function AlunoNotas() {
   const { id } = useParams();
-  const aluno = alunos.find((aluno) => aluno.id === parseInt(id));
-  const navigate = useNavigate();
 
-  if (!aluno) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-r from-purple-500 to-indigo-600 text-white">
-        <p className="text-xl font-semibold">Aluno não encontrado!</p>
-      </div>
-    );
-  }
+  // Simulação de dados do aluno
+  const aluno = { id: 1, nome: "Aroldo" }; // Nome fixo do aluno como "Aroldo"
 
   // Notas simuladas
   const notasSimuladas = [8, 9, 7, 10, 6]; // Exemplo de notas fixas
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-700 via-indigo-700 to-blue-700 flex flex-col items-center p-8">
-      {/* Botão Voltar */}
-      <button
-        onClick={() => navigate(-1)}
+      {/* Botão Voltar (Link) */}
+      <Link
+        to="/Dashboard-aluno" // Atualize o caminho conforme necessário
         className="flex items-center bg-white text-purple-700 px-6 py-3 rounded-full shadow-lg hover:bg-purple-600 hover:text-white transition-all duration-300 mb-12"
       >
         <FaArrowLeft className="mr-2 text-lg" />
         Voltar
-      </button>
+      </Link>
 
       {/* Título */}
       <div className="mb-16 text-center">

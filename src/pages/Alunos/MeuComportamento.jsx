@@ -6,29 +6,32 @@ import { FaArrowLeft } from 'react-icons/fa';
 
 const Comportamento = () => {
   const [feedbacks, setFeedbacks] = useState([]);
+  const [sugestoes, setSugestoes] = useState([]);
   const [status, setStatus] = useState('');
 
   useEffect(() => {
-    const fetchFeedbacks = async () => {
-      try {
-        const response = await fetch('http://localhost/backend/receberFeedback.php'); // Altere o endpoint conforme necessário
-        if (!response.ok) {
-          throw new Error('Erro ao buscar feedbacks.');
-        }
+    // Dados simulados para feedbacks
+    const feedbacksSimulados = [
+      {
+        feedback: "Você tem mostrado muito comprometimento nas atividades. Continue assim!",
+        data_envio: "24/01/2025",
+      },
+      {
+        feedback: "É importante melhorar a sua participação nas discussões em sala.",
+        data_envio: "20/01/2025",
+      },
+    ];
 
-        const data = await response.json();
-        if (data.status === 'success') {
-          setFeedbacks(data.data);
-        } else {
-          setStatus(data.message || 'Erro ao carregar os dados.');
-        }
-      } catch (error) {
-        console.error('Erro ao buscar feedbacks:', error.message);
-        setStatus('Erro ao carregar os dados.');
-      }
-    };
+    // Dados simulados para sugestões
+    const sugestoesSimuladas = [
+      "Tente participar mais ativamente nas discussões em sala.",
+      "Melhore sua organização para não se atrasar nas entregas.",
+    ];
 
-    fetchFeedbacks();
+    // Atualizando os estados com os dados simulados
+    setFeedbacks(feedbacksSimulados);
+    setSugestoes(sugestoesSimuladas);
+
   }, []);
 
   return (
@@ -95,9 +98,9 @@ const Comportamento = () => {
           <div className="mt-12 bg-white rounded-2xl p-10 shadow-xl hover:shadow-2xl transition-all ease-in-out duration-300">
             <h3 className="text-3xl font-semibold text-[#2b7a76] mb-6">Sugestões de Melhoria</h3>
             <ul className="list-disc pl-6 text-lg text-gray-800 space-y-4">
-              {feedbacks.length > 0 ? (
-                feedbacks.map((item, index) => (
-                  <li key={index}>{item.sugestao}</li>
+              {sugestoes.length > 0 ? (
+                sugestoes.map((item, index) => (
+                  <li key={index}>{item}</li>
                 ))
               ) : (
                 <p className="text-center text-gray-700">Nenhuma sugestão disponível.</p>

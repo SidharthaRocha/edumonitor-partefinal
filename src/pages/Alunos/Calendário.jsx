@@ -11,27 +11,40 @@ const Calendar = () => {
   const [show, setShow] = useState(false); // Controla a visibilidade para animação
   const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 
-  // Função para carregar eventos
+  // Função para carregar eventos (simulada para testes)
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/calendario.php'); // Requisição para o backend
-        const textData = await response.text();
-        console.log('Resposta do servidor (texto):', textData);
+        // Simulando a resposta de eventos (remover quando a API real estiver funcionando)
+        const simulatedEvents = [
+          {
+            id: '1',
+            event_name: 'Reunião de Planejamento',
+            event_date: '2025-01-15',
+            reminder: 1,
+            created_at: '2025-01-01',
+          },
+          {
+            id: '2',
+            event_name: 'Treinamento de Equipe',
+            event_date: '2025-01-22',
+            reminder: 0,
+            created_at: '2025-01-10',
+          },
+          {
+            id: '3',
+            event_name: 'Reunião com Cliente',
+            event_date: '2025-01-28',
+            reminder: 1,
+            created_at: '2025-01-15',
+          },
+        ];
 
-        if (!response.ok) {
-          throw new Error(`Erro ao carregar os eventos: ${response.statusText}`);
-        }
+        // Atribuindo eventos simulados ao estado
+        setEvents(simulatedEvents);
 
-        const data = JSON.parse(textData);
-        console.log('Dados recebidos do servidor:', data);
-
-        if (data.status === 'success' && data.data && Array.isArray(data.data.events)) {
-          setEvents(data.data.events); // Atualiza o estado com os eventos recebidos
-        } else {
-          throw new Error(data.message || 'Resposta inesperada do servidor');
-        }
-        setError(null); // Limpa qualquer erro anterior
+        // Limpar qualquer erro anterior
+        setError(null);
       } catch (error) {
         console.error('Erro:', error);
         setError('Houve um erro ao carregar os eventos. Tente novamente mais tarde.');
