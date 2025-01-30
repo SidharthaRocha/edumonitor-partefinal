@@ -10,7 +10,7 @@ const Notificacoes = () => {
 
   const enviarNotificacao = async () => {
     try {
-      const response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/notificacoes.php', {
+      const response = await fetch('https://4e03-177-10-253-154.ngrok-free.app/backend/notificacoes.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

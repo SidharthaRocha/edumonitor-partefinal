@@ -60,7 +60,7 @@ const ConfiguracoesProfessor = () => {
   const handleSaveNotifications = async () => {
     setLoading(true);
     try {
-      const response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/obter_perfil.php', {
+      const response = await fetch('https://4e03-177-10-253-154.ngrok-free.app/backend/obter_perfil.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

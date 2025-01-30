@@ -56,7 +56,7 @@ const UploadRecursos = () => {
         formData.append('tipo', tipo);
         formData.append('arquivo', arquivo);
 
-        response = await fetch('https://c85b-177-10-253-248.ngrok-free.app/backend/upload.php', {
+        response = await fetch('https://4e03-177-10-253-154.ngrok-free.app/backend/upload.php', {
           method: 'POST',
           body: formData,
           credentials: 'include',
