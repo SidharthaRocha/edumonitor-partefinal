@@ -25,7 +25,7 @@ const Professor = () => {
 
     try {
       // Enviar dados para o backend específico de login do professor
-      const response = await fetch('https://4e03-177-10-253-154.ngrok-free.app/backend/login_professor.php', {
+      const response = await fetch('https://a4e3-177-10-250-11.ngrok-free.app/backend/login_professor.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -33,7 +33,7 @@ const CadastroAluno = () => {
 
     // Envia os dados para o backend PHP com o campo tipo = 'aluno'
     try {
-      const response = await fetch('https://4e03-177-10-253-154.ngrok-free.app/backend/cadastro_aluno.php', { 
+      const response = await fetch('https://a4e3-177-10-250-11.ngrok-free.app/backend/cadastro_aluno.php', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
